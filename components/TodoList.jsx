@@ -11,7 +11,6 @@ export default function TodoList() {
 
   const handleCurrentPageItems = (items) => {
     setPageItems(items);
-    console.log("parent", pageItems);
   };
 
   useEffect(() => {
@@ -19,10 +18,8 @@ export default function TodoList() {
       try {
         setLoading(true);
         setErrorMsg("");
-        const { data } = await axios.get(
-          "https://jsonplaceholder.typicode.com/todos"
-        );
-        setodos(data);
+        const { data } = await axios.get("https://dummyjson.com/todos");
+        setodos(data.todos);
       } catch (error) {
         setErrorMsg("Something Went Wrong");
       } finally {
@@ -34,23 +31,24 @@ export default function TodoList() {
     <div>
       <h2>Todo List</h2>
       <div>
-        <ul>
+        <ul className="flex flex-wrap">
           {loading ? (
             <h2>Data Fetching......</h2>
           ) : errorMsg ? (
             <h2>{errorMsg}</h2>
           ) : pageItems ? (
-            pageItems.map((todo) => <li key={todo.id}>{todo.title}</li>)
+            pageItems.map((todo) => (
+              <li key={todo.id}>
+                <h3 className="font-bold">{todo.todo}</h3>
+              </li>
+            ))
           ) : (
             <h2>Wait....</h2>
           )}
         </ul>
 
         {/* pages */}
-        <PageNavigation
-          items={todos}
-          handleCurrentPageItems={handleCurrentPageItems}
-        />
+        <PageNavigation items={todos} handleCurrentPageItems={handleCurrentPageItems} />
       </div>
     </div>
   );

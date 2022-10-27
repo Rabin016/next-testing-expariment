@@ -5,6 +5,7 @@ export default function PageNavigation({ items, handleCurrentPageItems }) {
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
   const pages = [];
+  console.log(items);
 
   for (let i = 1; i <= Math.ceil(items.length / itemsPerPage); i++) {
     pages.push(i);
@@ -20,7 +21,7 @@ export default function PageNavigation({ items, handleCurrentPageItems }) {
 
   useEffect(() => {
     handleCurrentPageItems(currentPageItems);
-  }, [currentPage]);
+  }, [currentPage, items]);
 
   return (
     <div className="py-5">
