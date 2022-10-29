@@ -1,18 +1,12 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import User from "../../components/users/User";
-import { usersApi } from "../../config/axios";
+import { getUsers } from "../../config/crudRequest";
 
 export default function Users() {
-  const [allUsers, setAllUsers] = useState([]);
+  const { isLoading, isError, error, data } = useQuery("users", getUsers);
 
-  useEffect(() => {
-    (async () => {
-      const { data } = await usersApi.get("/user");
-      setAllUsers(data.data);
-      allUsers && console.log(allUsers);
-    })();
-  }, []);
-  if (allUsers) {
-    return allUsers.map((user) => <User key={user.id} userData={user} />);
+  if (data) {
+    const usersData = data.data.data;
+    return usersData.map((user) => <User key={user.id} userData={user} />);
   }
 }

@@ -1,10 +1,10 @@
-import { dataApi } from "./axios";
+import { usersApi } from "./axios";
 
-export const { data } = async () => await dataApi.get("/products");
+export const getUsers = async () => await usersApi.get("/user");
 
-export const postTodo = async (payload) => await dataApi.post("/products", payload);
+export const postTodo = async (payload) => await usersApi.post("/products", payload);
 
 export const patchTodo = async (payload) =>
-  await dataApi.patch(`/products/${payload.id}`, payload);
+  await usersApi.patch(`/products/${payload.id}`, payload);
 
-export const deleteTodo = async (id) => await dataApi.post(`/products/${id}`);
+export const deleteTodo = async (id) => await usersApi.post(`/products/${id}`);
